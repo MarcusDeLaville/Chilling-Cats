@@ -10,6 +10,12 @@ public enum ValueAction
     Deprive
 }
 
+public enum WalletType
+{
+    Coins,
+    Hearts
+}
+
 public class DrawUI : MonoBehaviour
 {
     [SerializeField] private Text _coinsText;
@@ -21,17 +27,14 @@ public class DrawUI : MonoBehaviour
     [SerializeField] private float _maxTime;
 
     private ValueAction _valueAction;
+    private WalletType _walletType;
+
+    private Text _textValue;
 
     private void Start()
     {
-        _coins = FindObjectOfType<Coins>();
         SetCurentValue();
     }
-
-    private void Update()
-    {
-        _catsCoinsCount.text = _coins.GetHearts().ToString();
-    } 
 
     private IEnumerator LerpValue(float startValue, float endValue, float duration, UnityAction<float> action)
     {
@@ -47,30 +50,43 @@ public class DrawUI : MonoBehaviour
         }
     }
 
-    public void ChangeValueUI(int value, ValueAction valueAction)
+    public void ChangeValueUI(int value, ValueAction valueAction, WalletType walletType)
     {
         float normalizeValue = 0;
+        int currentValue = 0;
+
+        if (walletType == WalletType.Coins)
+        {
+            currentValue = _coins.GetCoins();
+            _textValue = _coinsText;
+        }
+        else if (walletType == WalletType.Hearts)
+        {
+            currentValue = _coins.GetHearts();
+            _textValue = _catsCoinsCount;
+        }
 
         if (valueAction == ValueAction.Add)
         {
-            normalizeValue = _coins.GetCoins() + value;
+            normalizeValue = currentValue + value;
         }
         else if (valueAction == ValueAction.Deprive)
         {
-            normalizeValue = _coins.GetCoins() - value;
+            normalizeValue = currentValue - value;
         }
 
         float duration = Mathf.Lerp(_minTime, _maxTime, normalizeValue);
-        StartCoroutine(LerpValue(_coins.GetCoins(), normalizeValue, duration, SetTextValue));
+        StartCoroutine(LerpValue(currentValue, normalizeValue, duration, SetTextValue));
     } 
 
     private void SetTextValue(float value)
     {
-        _coinsText.text = ((int)value).ToString();
+        _textValue.text = ((int)value).ToString();
     }
 
     private void SetCurentValue()
     {
         _coinsText.text = _coins.GetCoins().ToString();
+        _catsCoinsCount.text = _coins.GetHearts().ToString();
     }
 }

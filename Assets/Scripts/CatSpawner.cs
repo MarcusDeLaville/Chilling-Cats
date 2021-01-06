@@ -21,9 +21,19 @@ public class CatSpawner : MonoBehaviour
 
     private Transform _vendingTransform;
 
+    [SerializeField] private GameObject _trainingCat;
+    [SerializeField] private Training _training;
+
     public void SpawnCat(GameObject prefab, Transform position)
     {
-        Instantiate(prefab, position.position, Quaternion.identity);
+        if (_training.IsTrainigComplite)
+        {
+            Instantiate(prefab, position.position, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(_trainingCat, position.position, Quaternion.identity);
+        }
     }
 
     public Transform[] GetWaypoints()

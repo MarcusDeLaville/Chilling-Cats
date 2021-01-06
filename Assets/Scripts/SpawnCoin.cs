@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class SpawnCoin : MonoBehaviour
 {
-    [SerializeField] private GameObject _coinPrefab;
-    [SerializeField] private Transform _parrent;
+    [SerializeField] private Coins _coins;
+    [SerializeField] private Coin _coinPrefab;
+    [SerializeField] private Transform _parent;
 
-    private Transform _spawnPosition;
-    private Buyer _buyer;
+    [SerializeField] private float _maximumOffsetX;
+    [SerializeField] private float _maximumOffsetY;
 
-    private void Start()
+    private Vector3 _spawnOffset;
+
+    public void SpawnCoins(Transform spawnPosition, PaymentType paymentType, Buyer buyer, int reward = 0)
     {
-        _buyer = GetComponent<Buyer>();
-        _parrent = FindObjectOfType<Canvas>().transform;
+        _spawnOffset = RandomOffset();
+        Coin newCoin = Instantiate(_coinPrefab, spawnPosition.localPosition + _spawnOffset, Quaternion.identity, _parent);
+
+        switch (paymentType)
+        {
+            case PaymentType.Purchase:
+                newCoin.SetCoins(_coins);
+                newCoin.SetRewardCount(paymentType, reward);
+                break;
+            case PaymentType.Visit:
+                newCoin.SetCoins(_coins);
+                newCoin.SetBuyer(buyer);
+                newCoin.SetRewardCount(paymentType);
+                break;
+        }
     }
 
-    public void SpawnCoins()
+    private Vector3 RandomOffset()
     {
-        GameObject newCoin = Instantiate(_coinPrefab, gameObject.transform.localPosition, Quaternion.identity, _parrent);
-        newCoin.gameObject.GetComponent<Coin>()._buyer = _buyer;
+        Vector3 templateVector;
+        templateVector = new Vector3(Random.Range(-_maximumOffsetX, _maximumOffsetX), Random.Range(-_maximumOffsetY, _maximumOffsetY), 0);
+
+        return templateVector;
     }
+
 }
