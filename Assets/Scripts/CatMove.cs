@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public enum WalkingState
 {
     Walk,
-    WalkToVending,
     Stand
 }
 
@@ -24,23 +23,24 @@ public class CatMove : MonoBehaviour
 
     [SerializeField] private CatSpawner _spawner;
 
-    [SerializeField] private bool _isWalking = true;
-
-    public bool InPlace { get; private set; } = false;
+    private bool _isWalking = true;
+    private bool _inPlace = false;
     private bool _isLeaved = false;
 
     private void Start()
     {
-        _transform = GetComponent<Transform>();
-        _targetPosition = _transform;
+        _isWalking = true;
+
         _spawner = FindObjectOfType<CatSpawner>();
 
         _enterPoint = _spawner.EnterPoint();
         _exitPoint = _spawner.ExitPoint();
         _walkPoints = _spawner.GetWaypoints();
 
+        _transform = GetComponent<Transform>();
+
         WalkToPoint(_enterPoint);
-        ChangeWalkState(WalkingState.Walk);
+        StartCoroutine(Walking());
     }
 
     private void FixedUpdate()
@@ -58,21 +58,15 @@ public class CatMove : MonoBehaviour
         StartCoroutine(GetOut());
     }
 
-    public void ChangeWalkState(WalkingState walkingState, VendingType vendingType = VendingType.Milk)
+    public void ChangeWalkState(WalkingState walkingState)
     {
         if(walkingState == WalkingState.Stand)
         {
             _isWalking = false;
         }
-        else if (walkingState == WalkingState.WalkToVending)
-        {
-            _isWalking = false;
-            StartCoroutine(WalkingToVending(vendingType));
-        }
         else if (walkingState == WalkingState.Walk)
         {
             _isWalking = true;
-            StartCoroutine(Walking());
         }
     }
 
@@ -85,9 +79,9 @@ public class CatMove : MonoBehaviour
             WalkToPoint(_enterPoint);
             if (CheckDistanceSqure() < 0.3)
             {
-                InPlace = true;
+                _inPlace = true;
             }
-            if (InPlace)
+            if (_inPlace)
             {
                 WalkToPoint(_exitPoint);
                 if (CheckDistanceSqure() < 0.3)
@@ -117,36 +111,9 @@ public class CatMove : MonoBehaviour
         }
     }
 
-    private IEnumerator WalkingToVending(VendingType vendingType)
+    private float CheckDistanceSqure()
     {
-        Transform targetVending = _spawner.VendingPosition(vendingType);
-        _isWalking = false;
-
-        while (!InPlace)
-        {
-            WalkToPoint(targetVending);
-
-            if (CheckDistanceSqure(targetVending) < 0.3)
-            {
-                InPlace = true;
-            }
-
-            yield return new WaitForSeconds(1);
-        }
-
-        InPlace = false;
-    }
-
-    private float CheckDistanceSqure(Transform transform = null)
-    {
-        if(transform != null)
-        {
-            _targetPosition = transform;
-        }
-
         float distanceSqure = Vector2.Distance(_transform.position, _targetPosition.position);
         return distanceSqure;
     }
-
-
 }

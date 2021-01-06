@@ -5,6 +5,7 @@ using UnityEngine;
 public class TurnCat : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
+    private bool _isRight = true;
 
     private void Start()
     {
