@@ -94,10 +94,10 @@ GameObject:
   - component: {fileID: 3239124632173214358}
   - component: {fileID: 3239124632173214344}
   - component: {fileID: 7998671361422988971}
-  - component: {fileID: 663015564}
   - component: {fileID: 3875675307377419820}
   - component: {fileID: 4184081890221973729}
   - component: {fileID: 8465310550034516950}
+  - component: {fileID: 3512467704871475633}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -197,25 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798c93198bca5c84daef74ad84c498c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &663015564
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3239124632173214347}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1bc3bb74e5cf1594482d02048d435dfe, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3875675307377419820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +243,23 @@ MonoBehaviour:
   _coinPrefab: {fileID: 538982950700581113, guid: 0585e44101c7c7c4196ade71a5e8e76f,
     type: 3}
   _parrent: {fileID: 0}
+--- !u!114 &3512467704871475633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239124632173214347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54836e771e708204fae29a2df081b891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frames:
+  - {fileID: -8731579659179131352, guid: 45c21e0cded97204e86af276f9b734ee, type: 3}
+  - {fileID: 7237890493632380373, guid: 45c21e0cded97204e86af276f9b734ee, type: 3}
+  _speed: 0.7
+  _renderer: {fileID: 3239124632173214358}
 --- !u!1 &8259769577694657813
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,8 +286,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8259769577694657813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 2.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.13, y: 3.47, z: 0}
+  m_LocalScale: {x: 1.7525, y: 1.7525, z: 1.7525}
   m_Children:
   - {fileID: 8525568668371839267}
   m_Father: {fileID: 3239124632173214359}
