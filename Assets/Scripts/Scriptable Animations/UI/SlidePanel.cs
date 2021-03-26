@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -15,9 +13,12 @@ public class SlidePanel : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] private float _hideAlpha = 0f;
 
+    [SerializeField] private float _downPoint = 50f;
+    
     private void Start()
     {
-        _panelObject.transform.position = Vector2.down * 20;
+        _panelObject.transform.position = Vector2.down * _downPoint;
+        _panelSubstrate.DOFade(_hideAlpha, 0.01f);;
     }
 
     public void ShowPanel()
@@ -30,6 +31,6 @@ public class SlidePanel : MonoBehaviour
     public void HidePanel()
     {
         _panelSubstrate.DOFade(_hideAlpha, 0.4f);
-        _panelObject.transform.DOMove(Vector2.down * 20, 0.4f).SetDelay(0.4f);
+        _panelObject.transform.DOMove(Vector2.down * _downPoint, 0.4f).SetDelay(0.4f);
     }
 }

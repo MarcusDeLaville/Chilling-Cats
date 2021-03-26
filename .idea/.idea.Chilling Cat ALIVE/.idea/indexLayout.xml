@@ -5,6 +5,7 @@
     <explicitIncludes>
       <Path>Library/PackageCache/com.unity.2d.animation@3.2.5</Path>
       <Path>Library/PackageCache/com.unity.2d.common@3.0.0</Path>
+      <Path>Library/PackageCache/com.unity.2d.ik@2.1.0-preview.1</Path>
       <Path>Library/PackageCache/com.unity.2d.path@3.0.0</Path>
       <Path>Library/PackageCache/com.unity.2d.pixel-perfect@3.0.1</Path>
       <Path>Library/PackageCache/com.unity.2d.psdimporter@2.1.6</Path>
@@ -22,6 +23,7 @@
       <Path>ProjectSettings</Path>
     </explicitIncludes>
     <explicitExcludes>
+      <Path>.git</Path>
       <Path>.idea</Path>
       <Path>.vs</Path>
       <Path>Builds</Path>

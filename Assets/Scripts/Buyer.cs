@@ -7,7 +7,7 @@ public enum CatType
     Обычный,
     Средний,
     Хороший,
-    Ебанистический
+    Эпический
 }
 
 public class Buyer : MonoBehaviour
@@ -33,7 +33,7 @@ public class Buyer : MonoBehaviour
             case CatType.Хороший:
                 BonusRate = 1.25f;
                 break;
-            case CatType.Ебанистический:
+            case CatType.Эпический:
                 BonusRate = 1.75f;
                 break;
 
