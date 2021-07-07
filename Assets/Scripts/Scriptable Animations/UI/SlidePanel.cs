@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class SlidePanel : MonoBehaviour
+public class SlidePanel : Panel
 {
     [SerializeField] private Image _panelSubstrate;
     [SerializeField] private GameObject _panelObject;
@@ -18,19 +18,22 @@ public class SlidePanel : MonoBehaviour
     private void Start()
     {
         _panelObject.transform.position = Vector2.down * _downPoint;
-        _panelSubstrate.DOFade(_hideAlpha, 0.01f);;
+        _panelSubstrate.DOFade(_hideAlpha, 0.01f);
+        
     }
 
-    public void ShowPanel()
+    public override void ShowPanel()
     {
         _panelObject.transform.DOMove(Vector2.zero, 0.5f);
         _panelObject.transform.DOPunchScale(Vector2.one * 0.05f, 0.3f, 10, 1).SetDelay(0.4f);
         _panelSubstrate.DOFade(_normalAlpha, 0.5f).SetDelay(0.4f);
+        PanelShowed?.Invoke();
     }
 
-    public void HidePanel()
+    public override void HidePanel()
     {
         _panelSubstrate.DOFade(_hideAlpha, 0.4f);
         _panelObject.transform.DOMove(Vector2.down * _downPoint, 0.4f).SetDelay(0.4f);
+        PanelHided?.Invoke();
     }
 }

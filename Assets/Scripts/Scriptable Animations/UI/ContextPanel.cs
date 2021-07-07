@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-public class ContextPanel : MonoBehaviour
+public class ContextPanel : Panel
 {
     [SerializeField] private GameObject _panelObject;
     [SerializeField] private CanvasGroup _panelCanvsGroup;
@@ -14,7 +14,7 @@ public class ContextPanel : MonoBehaviour
         _panelCanvsGroup.alpha = 0;
     }
 
-    public void ShowPanel()
+    public override void ShowPanel()
     {
         _panelObject.transform.DOScale(1f, 0.2f);
         _panelCanvsGroup.DOFade(1f, 0.2f);
@@ -24,12 +24,14 @@ public class ContextPanel : MonoBehaviour
         }
 
         _isShow = true;
+        PanelShowed?.Invoke();
     }
 
-    public void HidePanel()
+    public override void HidePanel()
     {
         _panelObject.transform.DOScale(0.8f, 0.2f);
         _panelCanvsGroup.DOFade(0f, 0.2f);
         _isShow = false;
+        PanelHided?.Invoke();
     }
 }

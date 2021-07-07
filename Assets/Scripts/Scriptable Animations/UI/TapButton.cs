@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -7,8 +6,9 @@ using DG.Tweening;
 public class TapButton : MonoBehaviour
 {
     [SerializeField] private float _rotateMultiplier = 35;
+    [SerializeField] private float _duration = 0.3f;
     
-    
+    private Vector3 _normalScale;
     private Button _button;
     private Transform _buttonTransform;
 
@@ -26,6 +26,8 @@ public class TapButton : MonoBehaviour
 
     private void TapAction()
     {
-        _buttonTransform.DOPunchRotation(Vector3.forward * _rotateMultiplier, 0.5f, 5, 1f);
+        _buttonTransform.DORotate(Vector3.forward * _rotateMultiplier, _duration, RotateMode.Fast);
+        _buttonTransform.DORotate(Vector3.zero, _duration, RotateMode.Fast).SetDelay(_duration);
+        // _buttonTransform.DOPunchRotation(Vector3.forward * _rotateMultiplier, 0.5f, 5, 1f);
     }
 }
